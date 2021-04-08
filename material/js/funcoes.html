@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tópico 7</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div>Programação de Interfaces (aula 9)</div>
+        <script type="text/javascript">
+            function externo(a){
+                function interno(b){
+                    return a * (b+1);
+                }
+                return interno;
+            };
+            document.write("<br>Função externo (2)(3) = " + externo(2)(3) );
+        </script>
+
+
+        <div>Podemos ir além no uso de funções, com o uso de Closures. Veja este exemplo:</div>
+        <script type="text/javascript">
+            var Pessoa = function (nome){
+                var idade;
+                return{
+                    setNome: function(newNome){
+                        nome = newNome;
+                    },
+                    getNome: function(){
+                        return nome;
+                    },
+                    setIdade: function(newIdade){
+                        idade = newIdade;
+                    },
+                    getIdade: function(){
+                        return idade;
+                    }
+                }
+            }
+            
+            var aluno = Pessoa('Eduardo');
+            document.write("<br>Nome do aluno: " + aluno.getNome());         // retorna Eduardo
+            aluno.setNome('João');   // alterado o nome para João
+            aluno.setIdade(20);      
+            document.write("<br>Idade: " + aluno.getIdade());        // retorna 20
+            document.write("<br>Nome Atualizado: " + aluno.getNome());        // retorna João
+            
+        </script>
+    </body>
+</html>
