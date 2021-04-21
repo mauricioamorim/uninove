@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Meu Exemplo</h2>
+<p id="demo"></p>
+<script>
+class ExmploFora{
+    txt = "";
+
+    setTxt = function(txt){
+        this.txt = txt;
+    }
+}
+
+teste = new ExmploFora();
+teste.setTxt("ok");
+
+document.getElementById('demo').innerHTML = teste.txt;
+
+</script>
+
+</body>
+</html>

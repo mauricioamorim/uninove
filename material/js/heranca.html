@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tópico 19</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div>
+        Herança
+        O conceito de herança é muito similar ao exemplo biológico, onde um pai ou uma mãe podem possuir descendentes, seus filhos, ou seja, os filhos herdam de seus pais algumas das características genéticas.
+        Em orientação a objetos é muito semelhante, pois uma classe filho, ou subclasse, herda os atributos e métodos da classe pai, ou superclasse.
+        Em outras palavras, uma classe possui a habilidade de herdar características de outra classe, a isso damos o nome de Herança.
+        
+        Veja este exemplo de script:
+        <script>
+            // Herança <br>
+            // Pessoa => Aluno <br>
+            Aluno.prototype = new Pessoa.prototype.constructor();
+            Aluno.prototype.constructor = Aluno;
+            // Opção para criar a Herança = Aluno.prototype = Object.create(Pessoa.prototype); 
+            Funcionario.prototype = new Pessoa.prototype.constructor();
+            Funcionario.prototype.constructor = Funcionario;
+        </script>
+        Na imagem abaixo, podemos verificar uma superclasse, com seus dados mais genéricos, interligada com suas subclasses, mais específicas, em uma relação de herança entre classes "pai" e "filho".
+        <img src="heranca.jpg" alt="">
+    </div>
+
+    <div>
+        Encapsulamento
+        Uma maneira de reunir e proteger os atributos e os métodos de uma classe. Uma vez isolados, o acesso ou modificação de dados só podem ser realizar pela própria classe, que disponibiliza métodos específicos para esta ação. Estes métodos normalmente são nomeados com métodos getters (leitura) e setters (alteração).
+    </div>
+
+    <div>
+        Abstração
+        A abstração é formada por um conjunto de heranças, onde uma classe abstrata pode apenas servir de modelo para outras classes, ou seja, um objeto não pode ser instanciado de uma classe abstrata.    
+        A criação de classes abstratas serve para criar um maior grau de generalização entre classes.
+    </div>
+
+    <div>
+        Polimorfismo
+        Quando mais de uma classe utiliza um mesmo método ou atributo, podemos utilizar o polimorfismo para implementar esta funcionalidade.
+        Entre uma das vantagens é padronizar a nomenclatura dos métodos, com comportamentos diferentes e de acordo com a sua respectiva classe.
+        Exemplo:
+        <script>
+            // Método exibir
+            Pessoa.prototype.exibirDados = function(){
+                return 'Nome = ' + this.getNome() + ', idade = ' + this.getIdade() + ' anos';
+            }
+    
+            // Polimorfismo do método exibirDados
+            Aluno.prototype.exibirDados = function(){
+                return Pessoa.prototype.exibirDados.call(this) + 
+                ', RA = ' + this.ra + ', curso = ' + this.curso + '.';
+            }
+    
+            // Polimorfismo do método exibirDados
+            Funcionario.prototype.exibirDados = function(){
+                return Pessoa.prototype.exibirDados.call(this) + 
+                ', Matricula = ' + this.matricula + ', Setor = ' + this.setor + '.';
+            }
+        </script>
+    </div>
+
+    <div>
+        No exemplo abaixo veremos a implementação de algumas destas caracteristicas da orientação a objetos.
+        Veja o exemplo:
+        <script>
+            // Classe pai (Superclasse)
+            function Pessoa(a, b){
+                this.nome = a;
+                this.idade = b;
+            }
+     
+            // Classe filho (Subclasse)
+            function Aluno(a, b, c, d){
+                Pessoa.call(this, a, b);
+                this.ra = c;
+                this.curso = d;   
+            }
+     
+            // Classe filho (Subclasse)
+            function Funcionario(a, b, c, d){
+                Pessoa.call(this, a, b);
+                this.matricula = c;
+                this.setor = d;
+            }
+     
+            // Herança
+            // Pessoa => Aluno
+            Aluno.prototype = new Pessoa.prototype.constructor();
+            Aluno.prototype.constructor = Aluno;
+            // Opção para criar a Herança = Aluno.prototype = Object.create(Pessoa.prototype);
+            Funcionario.prototype = new Pessoa.prototype.constructor();
+            Funcionario.prototype.constructor = Funcionario;
+     
+     
+            // Métodos
+            // Métodos acessores
+            Pessoa.prototype.getNome = function(){
+                return this.nome;
+            }
+            Pessoa.prototype.getIdade = function(){
+                return this.idade;
+            }
+     
+            // Métodos modificadores
+            Pessoa.prototype.setNome = function(x){
+                this.nome = x;
+            }
+            Pessoa.prototype.setIdade = function(x){
+                this.idade = x;
+            }
+     
+            // Método exibir
+            Pessoa.prototype.exibirDados = function(){
+                return 'Nome = ' + this.getNome() + ', idade = ' + this.getIdade() + ' anos';
+            }
+     
+            // Polimorfismo do método exibirDados
+            Aluno.prototype.exibirDados = function(){
+                return Pessoa.prototype.exibirDados.call(this) + 
+                ', RA = ' + this.ra + ', curso = ' + this.curso + '.';
+            }
+     
+            // Polimorfismo do método exibirDados
+            Funcionario.prototype.exibirDados = function(){
+                return Pessoa.prototype.exibirDados.call(this) + 
+                ', Matricula = ' + this.matricula + ', Setor = ' + this.setor + '.';
+            }
+     
+            // Instanciar objetos
+            var p1 = new Pessoa('Joao da Silva', 20);
+            var p2 = new Aluno('Pedro', 19, '123456', 'Ciênca da Computação');
+            var p3 = new Aluno('Maria da Graça', 34, '456123', 'Tec. em Sistemas para Internet');
+            var p4 = new Funcionario('Gustavo Lira', 26, '123', 'Secretaria');
+            var p5 = new Funcionario('Roberto Kall', 60, '203', 'TI');
+     
+            // Exibir
+            console.log(p1.exibirDados());
+            console.log(p2.exibirDados());
+            console.log(p3.exibirDados());
+            console.log(p4.exibirDados());
+            console.log(p5.exibirDados());
+     
+            // Alterações
+            p1.setIdade(21);
+            p2.setNome('Pedro Antonio');
+            p5.setIdade(45);
+     
+            // Array de objetos
+            var universidade = [p1, p2, p3, p4, p5];
+     
+            // Reexibir em loop
+            console.log('\n************************************');
+            for(cadaPessoa of universidade){
+                console.log(cadaPessoa.exibirDados());
+            }
+     
+            // Procurar o aluno mais velho da universidade
+            // atenção para como ele pega o tipo de pessoa pela contrutura do objeto "cadaPessoa.constructor.name"
+            var maiorIdade = 0; var cadaPessoa;
+            for(cadaPessoa of universidade){
+                if( (cadaPessoa.getIdade() > maiorIdade) && (String(cadaPessoa.constructor.name) == "Aluno") ){
+                    maiorIdade = cadaPessoa.getIdade();
+                    var idPessoa = cadaPessoa;
+                }
+            }
+     
+            console.log('\nO aluno mais velho é o ' + idPessoa.getNome() + ', tem ' + idPessoa.getIdade() + ' anos!');
+            
+       </script>
+    </div>
+   
+</body>
+</html>

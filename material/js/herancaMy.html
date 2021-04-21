@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tópico 19</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <script>
+        // Classe Pai ( SuperCLass )
+        function Pessoa(nome, idade){
+            this.nome   = nome;
+            this.idade  = idade;
+        }
+
+        // Métodos acessores
+        Pessoa.prototype.getNome = function(){
+            return "Nome: " + this.nome;
+        }
+
+        Pessoa.prototype.getIdade= function(){
+            return "Idade: " + this.idade;
+        }
+
+        Pessoa.prototype.setNome = function(nome){
+            this.nome = nome;
+        }
+
+        Pessoa.prototype.setIdade = function(idade){
+            this.idade = idade;
+        }
+
+
+        //Classe Filho
+        function Aluno(alunoNome, alunoIdade, alunoMatricula, alunoCurso){
+            // Herança - serve para popular os atributos da classe pai na construtora da filha
+            Pessoa.call(this, alunoNome, alunoIdade); //chama a classe pai com os parametros alunoNome e alunoIdade da classe filho
+            this.matricula  = alunoMatricula;
+            this.curso      = alunoCurso;
+        }
+
+ 
+        // Herança - caso os atributos da classe pari nao tenham sido criados na construtora da filha
+        Aluno.prototype = Object.create(Pessoa.prototype);
+        Aluno.prototype.constructor = Aluno;
+
+
+        // Instancia
+        var aluno = new Aluno("Mauricio", 38);
+        
+
+        //aluno.setIdade("39");
+        //aluno.setNome("Alexandre");
+        console.log( aluno.getIdade() );
+        console.log( aluno.getNome() );
+
+ 
+   </script>
+</body>
+</html>
